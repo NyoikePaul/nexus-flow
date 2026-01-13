@@ -1,49 +1,42 @@
-# NexusFlow Logistics Dashboard
+# Nexus-Flow: Logistics Workflow Dashboard
 
-A full-stack logistics monitoring system built with **Next.js**, **NestJS**, and **PostgreSQL**.
+Full-stack app for logistics tracking. Frontend: Next.js/Tailwind. Backend: NestJS/Prisma/PostgreSQL. Monorepo with TurboRepo.
 
-## 🚀 Quick Start
+[![GitHub license](https://img.shields.io/github/license/nyoikepaul/nexus-flow)](https://github.com/nyoikepaul/nexus-flow/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/nyoikepaul/nexus-flow)](https://github.com/nyoikepaul/nexus-flow/stargazers)
 
-### 1. Prerequisites
-- Docker & Docker Compose
-- Node.js (v18+)
-- pnpm (`npm install -g pnpm`)
+## 🚀 Live Demo
+[Update with deploy link, e.g., Vercel]
 
-### 2. Infrastructure (Database)
-Start the PostgreSQL container:
-```bash
-docker run --name nexus-db -e POSTGRES_USER=nexus -e POSTGRES_PASSWORD=nexus_password -e POSTGRES_DB=nexus_db -p 5433:5432 -d postgres
-```
+## 🛠️ Features
+- Real-time tracking (origin/destination/status).
+- Dashboard UI (Next.js + Tailwind).
+- API endpoints (NestJS).
+- PostgreSQL DB (Prisma ORM).
+- Efficient builds (TurboRepo).
 
-### 3. Backend Setup (API)
-```bash
-cd apps/api
-pnpm install
-export DATABASE_URL="postgresql://nexus:nexus_password@localhost:5433/nexus_db?schema=public"
-npx prisma db push
-pnpm run start:dev
-```
-*API runs at: http://localhost:4000*
+## 📂 Project Structure
+- `/apps/api`: NestJS backend.
+- `/apps/dashboard`: Next.js frontend.
+- `/packages`: Shared code.
+- `docker-compose.yml`: DB setup.
 
-### 4. Frontend Setup (Dashboard)
-Open a new terminal:
-```bash
-cd apps/dashboard
-pnpm install
-pnpm run dev
-```
-*Dashboard runs at: http://localhost:3000*
+## 📦 Setup & Run
+1. Clone: `git clone https://github.com/nyoikepaul/nexus-flow.git`
+2. Install: `pnpm install`
+3. DB: Docker Compose up (PostgreSQL).
+4. Backend: `cd apps/api` > `pnpm start:dev`
+5. Frontend: `cd apps/dashboard` > `pnpm dev`
 
-## 🛠 Tech Stack
-- **Frontend:** Next.js 15, Tailwind CSS, Lucide Icons
-- **Backend:** NestJS, Prisma ORM
-- **Database:** PostgreSQL (Docker)
-- **Monorepo Tooling:** TurboRepo
+## 📸 Screenshots
+(Add dashboard images)
 
-## 📦 API Commands
-Add a test shipment:
-```bash
-curl -X POST http://localhost:4000/shipments \
-  -H "Content-Type: application/json" \
-  -d '{"id": "NEXUS-1", "origin": "London", "destination": "New York", "status": "IN_TRANSIT"}'
-```
+## 🤝 Contributing
+Issues/PRs: [Here](https://github.com/nyoikepaul/nexus-flow/issues).
+
+## 📫 About Me
+Paul Nyoike Kamau, Nairobi. Upwork gigs in full-stack logistics apps.
+
+Contact: nyoikepaul2@gmail.com | X: [@paulNyoike2](https://x.com/paulNyoike2)
+
+MIT License.
