@@ -1,42 +1,21 @@
-# Nexus-Flow: Logistics Workflow Dashboard
+# Nexus Flow — Enterprise Workflow Engine (NestJS + TypeScript)
 
-Full-stack app for logistics tracking. Frontend: Next.js/Tailwind. Backend: NestJS/Prisma/PostgreSQL. Monorepo with TurboRepo.
+[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Upwork](https://img.shields.io/badge/Upwork-Hire_Me-6BBE4B?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01a905cc4c1df645ac)
 
-[![GitHub license](https://img.shields.io/github/license/nyoikepaul/nexus-flow)](https://github.com/nyoikepaul/nexus-flow/blob/main/LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/nyoikepaul/nexus-flow)](https://github.com/nyoikepaul/nexus-flow/stargazers)
+Scalable workflow orchestration system with authentication, task scheduling, and real-time status — built for logistics, CRM, and ERP clients.
 
-## 🚀 Live Demo
-[Update with deploy link, e.g., Vercel]
+### ✨ Highlights
+- Clean architecture (NestJS + Prisma + PostgreSQL)
+- Role-based access + JWT
+- Background jobs & webhooks
+- Monorepo with TurboRepo
 
-## 🛠️ Features
-- Real-time tracking (origin/destination/status).
-- Dashboard UI (Next.js + Tailwind).
-- API endpoints (NestJS).
-- PostgreSQL DB (Prisma ORM).
-- Efficient builds (TurboRepo).
+**Ideal for clients who say: “I need a custom workflow engine”**
 
-## 📂 Project Structure
-- `/apps/api`: NestJS backend.
-- `/apps/dashboard`: Next.js frontend.
-- `/packages`: Shared code.
-- `docker-compose.yml`: DB setup.
+### 📸 Screenshots
+![Dashboard](https://raw.githubusercontent.com/nyoikepaul/nyoikepaul/main/images/nexusflow-thumbnail.png)
+![API Flow](https://raw.githubusercontent.com/nyoikepaul/nyoikepaul/main/images/nexusflow-thumbnail.png)
 
-## 📦 Setup & Run
-1. Clone: `git clone https://github.com/nyoikepaul/nexus-flow.git`
-2. Install: `pnpm install`
-3. DB: Docker Compose up (PostgreSQL).
-4. Backend: `cd apps/api` > `pnpm start:dev`
-5. Frontend: `cd apps/dashboard` > `pnpm dev`
-
-## 📸 Screenshots
-(Add dashboard images)
-
-## 🤝 Contributing
-Issues/PRs: [Here](https://github.com/nyoikepaul/nexus-flow/issues).
-
-## 📫 About Me
-Paul Nyoike Kamau, Nairobi. Upwork gigs in full-stack logistics apps.
-
-Contact: nyoikepaul2@gmail.com | X: [@paulNyoike2](https://x.com/paulNyoike2)
-
-MIT License.
+**[Invite me for your backend/workflow project →](https://www.upwork.com/freelancers/~01a905cc4c1df645ac)**
