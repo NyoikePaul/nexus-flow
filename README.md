@@ -1,21 +1,68 @@
-# Nexus Flow — Enterprise Workflow Engine (NestJS + TypeScript)
+# NexusFlow — Enterprise Logistics Command Center
 
-[![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)](https://nestjs.com)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Upwork](https://img.shields.io/badge/Upwork-Hire_Me-6BBE4B?style=for-the-badge&logo=upwork&logoColor=white)](https://www.upwork.com/freelancers/~01a905cc4c1df645ac)
+> Real-time shipment tracking, AI risk scoring, and logistics orchestration — built from Nairobi, Kenya 🇰🇪
 
-Scalable workflow orchestration system with authentication, task scheduling, and real-time status — built for logistics, CRM, and ERP clients.
+[![CI](https://github.com/NyoikePaul/nexus-flow/actions/workflows/ci.yml/badge.svg)](https://github.com/NyoikePaul/nexus-flow/actions)
 
-### ✨ Highlights
-- Clean architecture (NestJS + Prisma + PostgreSQL)
-- Role-based access + JWT
-- Background jobs & webhooks
-- Monorepo with TurboRepo
+## Architecture
 
-**Ideal for clients who say: “I need a custom workflow engine”**
+```
+nexus-flow/
+├── apps/
+│   ├── dashboard/   # Next.js 16  — deployed on Vercel (port 3000)
+│   ├── api/         # NestJS 11   — deployed on Railway (port 4000)
+│   └── docs/        # Next.js docs (port 3001)
+└── packages/
+    ├── ui/          # Shared React components
+    ├── database/    # Shared Prisma schema
+    ├── eslint-config/
+    └── typescript-config/
+```
 
-### 📸 Screenshots
-![Dashboard](https://raw.githubusercontent.com/nyoikepaul/nyoikepaul/main/images/nexusflow-thumbnail.png)
-![API Flow](https://raw.githubusercontent.com/nyoikepaul/nyoikepaul/main/images/nexusflow-thumbnail.png)
+## Quick Start
 
-**[Invite me for your backend/workflow project →](https://www.upwork.com/freelancers/~01a905cc4c1df645ac)**
+```bash
+git clone https://github.com/NyoikePaul/nexus-flow.git && cd nexus-flow
+pnpm install
+cp .env.example .env
+cp apps/api/.env.example apps/api/.env
+cp apps/dashboard/.env.example apps/dashboard/.env.local
+docker compose up -d
+sleep 5
+cd apps/api && npx prisma generate && npx prisma migrate deploy && npx ts-node prisma/seed.ts && cd ../..
+pnpm dev
+```
+
+Dashboard → http://localhost:3000  
+API       → http://localhost:4000/api/v1  
+Swagger   → http://localhost:4000/api/docs  
+
+## Vercel Deploy
+
+1. Import `NyoikePaul/nexus-flow` on vercel.com
+2. Set Root Directory → `apps/dashboard`
+3. Add env var: `NEXT_PUBLIC_API_URL=https://your-api.railway.app`
+4. Deploy ✅
+
+## API Reference
+
+| Method   | Endpoint               | Description              |
+|----------|------------------------|--------------------------|
+| `GET`    | /api/v1/shipments      | List (paginated+filtered)|
+| `POST`   | /api/v1/shipments      | Create shipment          |
+| `GET`    | /api/v1/shipments/:id  | Get by UUID              |
+| `PATCH`  | /api/v1/shipments/:id  | Update shipment          |
+| `DELETE` | /api/v1/shipments/:id  | Delete shipment          |
+| `GET`    | /api/v1/health         | Health check             |
+
+Query params: `page`, `limit`, `search`, `status`
+
+## Stack
+
+| Layer    | Tech                                     |
+|----------|------------------------------------------|
+| Frontend | Next.js 16, React 19, Tailwind CSS 4     |
+| Backend  | NestJS 11, TypeScript, Prisma 5          |
+| Database | PostgreSQL 16                            |
+| Monorepo | TurboRepo 2, pnpm workspaces             |
+| CI/CD    | GitHub Actions → Vercel                  |

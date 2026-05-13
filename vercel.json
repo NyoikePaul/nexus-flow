@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework":       "nextjs",
+  "rootDirectory":   "apps/dashboard",
+  "buildCommand":    "cd ../.. && npx turbo run build --filter=web",
+  "installCommand":  "cd ../.. && pnpm install --frozen-lockfile",
+  "outputDirectory": ".next",
+  "ignoreCommand":   "npx turbo-ignore"
+}
