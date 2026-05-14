@@ -4,7 +4,9 @@ WORKDIR /app
 COPY . .
 RUN npm install
 RUN npx prisma generate
-RUN npx tsc -p tsconfig.build.json --outDir dist || npx tsc -p tsconfig.json --outDir dist
-RUN ls -la dist/
+RUN npx tsc --outDir dist --rootDir src --module commonjs --target ES2021 \
+    --experimentalDecorators --emitDecoratorMetadata \
+    --esModuleInterop --skipLibCheck src/main.ts
+RUN find dist -name "*.js" | head -20
 EXPOSE 4000
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main.js || node dist/main.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
