@@ -22,7 +22,7 @@ export class ShipmentsService {
 
   async findAll(q: QueryShipmentDto) {
     const { page=1, limit=10, search, status } = q;
-    const where: Prisma.ShipmentWhereInput = {
+    const where: any = {
       ...(status && { status }),
       ...(search && { OR:[
         { trackingId:  { contains:search, mode:'insensitive' } },
