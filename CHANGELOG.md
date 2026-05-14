@@ -38,3 +38,4 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 - Prisma 5 + PostgreSQL data layer
 - Docker Compose for local development
 - GitHub Actions CI pipeline
+## [1.0.1] — 2026-01-20
