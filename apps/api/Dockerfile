@@ -1,12 +1,10 @@
 FROM node:20-alpine
 RUN apk add --no-cache openssl
 WORKDIR /app
-COPY package*.json tsconfig*.json nest-cli.json ./
-COPY prisma ./prisma/
+COPY . .
 RUN npm install
 RUN npx prisma generate
-COPY src ./src
-RUN npx nest build
-RUN ls dist/
+RUN npx tsc -p tsconfig.build.json --outDir dist || npx tsc -p tsconfig.json --outDir dist
+RUN ls -la dist/
 EXPOSE 4000
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main.js || node dist/main.js"]
