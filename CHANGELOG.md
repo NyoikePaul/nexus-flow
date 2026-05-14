@@ -43,3 +43,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 ## [1.1.0] — 2026-02-07
 ## [1.1.1] — 2026-02-14
 ## [1.2.0] — 2026-05-14
+
+- Vercel production deploy
+- Security headers
+- Rate limiting
