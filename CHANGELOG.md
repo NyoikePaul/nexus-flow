@@ -39,3 +39,4 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 - Docker Compose for local development
 - GitHub Actions CI pipeline
 ## [1.0.1] — 2026-01-20
+## [1.0.2] — 2026-01-28
