@@ -40,3 +40,4 @@ Format follows [Keep a Changelog](https://keepachangelog.com).
 - GitHub Actions CI pipeline
 ## [1.0.1] — 2026-01-20
 ## [1.0.2] — 2026-01-28
+## [1.1.0] — 2026-02-07
