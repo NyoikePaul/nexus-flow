@@ -66,3 +66,6 @@ Query params: `page`, `limit`, `search`, `status`
 | Database | PostgreSQL 16                            |
 | Monorepo | TurboRepo 2, pnpm workspaces             |
 | CI/CD    | GitHub Actions → Vercel                  |
+
+## Contributing
+PRs welcome! See CONTRIBUTING.md.
