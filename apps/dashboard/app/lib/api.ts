@@ -20,3 +20,4 @@ export const fetchShipments = (p: { page?:number; limit?:number; search?:string;
   if (p.status) q.set("status", p.status);
   return get<PaginatedShipments>(`/shipments${q.size ? `?${q}` : ""}`);
 };
+
