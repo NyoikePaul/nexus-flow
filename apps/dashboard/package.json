@@ -2,25 +2,13 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev":          "next dev --port 3000",
-    "build":        "next build",
-    "start":        "next start",
-    "lint":         "next lint",
-    "check-types":  "tsc --noEmit"
+  " scripts": {
+    "type": "module",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "../../node_modules/.bin/eslint . --ext .ts,.tsx --max-warnings=0",
+    "lint:fix": "../../node_modules/.bin/eslint . --ext .ts,.tsx --fix"
   },
-  "dependencies": {
-    "clsx":         "^2.1.1",
-    "lucide-react": "^0.513.0",
-    "next":         "^16.1.0",
-    "react":        "^19.0.0",
-    "react-dom":    "^19.0.0",
-    "tailwind-merge":"^3.3.0"
-  },
-  "devDependencies": {
-    "@types/node":   "^22.10.7",
-    "@types/react":  "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "typescript":    "^5.7.3"
-  }
+  "type": "module"
 }

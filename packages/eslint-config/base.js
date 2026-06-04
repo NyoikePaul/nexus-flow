@@ -6,13 +6,22 @@ import onlyWarn from "eslint-plugin-only-warn";
 
 /**
  * A shared ESLint configuration for the repository.
- *
  * @type {import("eslint").Linter.Config[]}
- * */
+ */
 export const config = [
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.recommended,
+  {
+    // Apply type-aware parsing to your TypeScript files
+    files: ["**/*.ts", "**/*.tsx", "src/**/*.ts"],
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: process.cwd(), // Dynamically targets the executing workspace root
+      },
+    },
+  },
   {
     plugins: {
       turbo: turboPlugin,
@@ -23,7 +32,7 @@ export const config = [
   },
   {
     plugins: {
-      onlyWarn,
+      "only-warn": onlyWarn,
     },
   },
   {

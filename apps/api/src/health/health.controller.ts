@@ -10,7 +10,16 @@ export class HealthController {
   @ApiOperation({ summary: 'Health check' })
   async check() {
     let db = 'ok';
-    try { await this.prisma.$queryRaw`SELECT 1`; } catch { db = 'degraded'; }
-    return { status: db === 'ok' ? 'ok' : 'degraded', services:{ database:db, api:'ok' }, uptime:process.uptime(), timestamp:new Date().toISOString() };
+    try {
+      await this.prisma.$queryRaw`SELECT 1`;
+    } catch {
+      db = 'degraded';
+    }
+    return {
+      status: db === 'ok' ? 'ok' : 'degraded',
+      services: { database: db, api: 'ok' },
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+    };
   }
 }
