@@ -1,29 +1,30 @@
 FROM node:20-alpine
-RUN apk add --no-cache openssl python3 make g++
+
 WORKDIR /app
 
-# Copy everything
-COPY . .
+# Copy root package files
+COPY package.json ./
+COPY apps/api/package.json ./apps/api/
 
-# Install deps
-RUN npm install
+# Install only API dependencies using npm (no pnpm needed)
+WORKDIR /app/apps/api
+RUN npm install --legacy-peer-deps
 
-# Generate prisma
+# Copy source
+WORKDIR /app
+COPY apps/api/ ./apps/api/
+
+# Generate Prisma client
+WORKDIR /app/apps/api
 RUN npx prisma generate
 
-# Compile TypeScript manually
-RUN ./node_modules/.bin/tsc \
-  --module commonjs \
-  --target ES2021 \
-  --outDir dist \
-  --experimentalDecorators \
-  --emitDecoratorMetadata \
-  --esModuleInterop \
-  --skipLibCheck \
-  --strict false \
-  src/main.ts
+# Build
+RUN npm run build
 
-RUN echo "=== dist contents ===" && find dist -type f | head -30
+EXPOSE 3001
+ENV NODE_ENV=production
 
-EXPOSE 4000
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/main.js || node dist/main.js"]
+HEALTHCHECK --interval=30s --timeout=5s \
+  CMD wget -qO- http://localhost:3001/api/v1/health/liveness || exit 1
+
+CMD ["node", "dist/main"]
