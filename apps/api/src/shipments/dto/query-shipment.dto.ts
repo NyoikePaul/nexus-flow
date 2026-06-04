@@ -1,5 +1,13 @@
 import { IsOptional, IsString, IsEnum } from 'class-validator';
-import { ShipmentStatus } from '@prisma/client';
+
+enum ShipmentStatus {
+  PENDING = 'PENDING',
+  IN_TRANSIT = 'IN_TRANSIT',
+  CUSTOMS = 'CUSTOMS',
+  DELIVERED = 'DELIVERED',
+  DELAYED = 'DELAYED',
+  CANCELLED = 'CANCELLED',
+}
 
 export class QueryShipmentDto {
   @IsOptional()
