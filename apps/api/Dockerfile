@@ -12,7 +12,7 @@ COPY apps/api/nest-cli.json ./
 COPY apps/api/prisma ./prisma
 
 RUN npm run build || true
-RUN ls dist/ 2>/dev/null && echo "dist OK" || echo "dist MISSING - build failed silently"
+RUN find . -name "main.js" 2>/dev/null || echo "NO main.js found anywhere"
 
 ENV NODE_ENV=production
 EXPOSE 3001
