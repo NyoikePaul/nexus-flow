@@ -1,5 +1,3 @@
 #!/bin/sh
-echo "Running Prisma migrations..."
-npx prisma migrate deploy
-echo "Starting API..."
-node dist/main
+echo "Starting Nexus Flow API..."
+node dist/main.js

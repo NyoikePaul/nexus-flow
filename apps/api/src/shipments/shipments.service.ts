@@ -1,94 +1,61 @@
-import {
-  Injectable,
-  NotFoundException,
-  ConflictException,
-  Logger,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateShipmentDto } from './dto/create-shipment.dto';
 import { UpdateShipmentDto } from './dto/update-shipment.dto';
 import { QueryShipmentDto } from './dto/query-shipment.dto';
-import { Prisma, ShipmentStatus } from '@prisma/client';
 
 @Injectable()
 export class ShipmentsService {
-  private readonly logger = new Logger(ShipmentsService.name);
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateShipmentDto) {
-    try {
-      return await this.prisma.shipment.create({
-        data: {
-          trackingId: dto.trackingId,
-          origin: dto.origin,
-          destination: dto.destination,
-          status: (dto.status ?? 'PENDING') as ShipmentStatus,
-          aiRiskScore: dto.aiRiskScore ?? 0,
-        },
-      });
-    } catch (e) {
-      if (
-        e instanceof Prisma.PrismaClientKnownRequestError &&
-        e.code === 'P2002'
-      )
-        throw new ConflictException(
-          `trackingId '${dto.trackingId}' already exists`,
-        );
-      throw e;
-    }
+  async create(createShipmentDto: CreateShipmentDto) {
+    return this.prisma.shipment.create({
+      data: createShipmentDto,
+    });
   }
 
-  async findAll(q: QueryShipmentDto) {
-    const { page = 1, limit = 10, search, status } = q;
-    const where: any = {
-      ...(status && { status: status as ShipmentStatus }),
-      ...(search && {
-        OR: [
-          { trackingId: { contains: search, mode: 'insensitive' } },
-          { origin: { contains: search, mode: 'insensitive' } },
-          { destination: { contains: search, mode: 'insensitive' } },
-        ],
-      }),
-    };
-    const [data, total] = await this.prisma.$transaction([
+  async findAll(query: QueryShipmentDto) {
+    const { page = 1, limit = 10, status, origin, destination } = query;
+    const skip = (page - 1) * limit;
+
+    const where: any = {};
+    if (status) where.status = status;
+    if (origin) where.origin = { contains: origin };
+    if (destination) where.destination = { contains: destination };
+
+    const [data, total] = await Promise.all([
       this.prisma.shipment.findMany({
         where,
-        skip: (page - 1) * limit,
+        skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
       }),
       this.prisma.shipment.count({ where }),
     ]);
-    return {
-      data,
-      meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
-    };
+
+    return { data, total, page, limit };
   }
 
   async findOne(id: string) {
-    const s = await this.prisma.shipment.findUnique({ where: { id } });
-    if (!s) throw new NotFoundException(`Shipment '${id}' not found`);
-    return s;
+    const shipment = await this.prisma.shipment.findUnique({
+      where: { id },
+    });
+
+    if (!shipment) throw new NotFoundException(`Shipment with ID ${id} not found`);
+    return shipment;
   }
 
-  async update(id: string, dto: UpdateShipmentDto) {
-    await this.findOne(id);
+  async update(id: string, updateShipmentDto: UpdateShipmentDto) {
+    await this.findOne(id); // Check existence
+
     return this.prisma.shipment.update({
       where: { id },
-      data: {
-        ...(dto.trackingId && { trackingId: dto.trackingId }),
-        ...(dto.origin && { origin: dto.origin }),
-        ...(dto.destination && { destination: dto.destination }),
-        ...(dto.status && { status: dto.status as ShipmentStatus }),
-        ...(dto.aiRiskScore !== undefined && { aiRiskScore: dto.aiRiskScore }),
-        updatedAt: new Date(),
-      },
+      data: updateShipmentDto,
     });
   }
 
   async remove(id: string) {
     await this.findOne(id);
-    await this.prisma.shipment.delete({ where: { id } });
-    return { message: `Shipment '${id}' deleted` };
+    return this.prisma.shipment.delete({ where: { id } });
   }
 }

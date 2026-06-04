@@ -2,13 +2,31 @@
   "name": "api",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node src/index.ts",
-    "build": "tsc",
-    "lint": "../../node_modules/.bin/eslint \"src/**/*.ts\" --fix",
-    "lint:fix": "../../node_modules/.bin/eslint \"src/**/*.ts\" --fix"
+    "build": "../../node_modules/.bin/nest build",
+    "start": "node dist/main",
+    "start:prod": "node dist/main",
+    "dev": "../../node_modules/.bin/nest start --watch",
+    "lint": "../../node_modules/.bin/eslint \"src/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/config": "^4.0.0",
+    "@nestjs/swagger": "^11.0.0",
+    "@nestjs/throttler": "^6.0.0",
+    "@prisma/client": "^6.0.0",
+    "class-validator": "^0.14.0",
+    "class-transformer": "^0.5.1",
+    "helmet": "^8.0.0",
+    "express": "^4.19.0",
+    "prisma": "^6.0.0"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.6"
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.0"
   }
 }
