@@ -1,31 +1,22 @@
-import { IsOptional, IsString, IsInt, Min, Max, IsIn } from 'class-validator';
-import { Type } from 'class-transformer';
-import { ApiPropertyOptional } from '@nestjs/swagger';
-const STATUSES = [
-  'PENDING',
-  'IN_TRANSIT',
-  'CUSTOMS',
-  'DELIVERED',
-  'DELAYED',
-  'CANCELLED',
-];
+import { IsOptional, IsString, IsEnum } from 'class-validator';
+import { ShipmentStatus } from '@prisma/client';
+
 export class QueryShipmentDto {
-  @ApiPropertyOptional()
   @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  page?: number = 1;
-  @ApiPropertyOptional()
+  page?: number;
+
   @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  @Max(100)
-  limit?: number = 10;
-  @ApiPropertyOptional() @IsOptional() @IsString() search?: string;
-  @ApiPropertyOptional({ enum: STATUSES })
+  limit?: number;
+
   @IsOptional()
-  @IsIn(STATUSES)
-  status?: string;
+  @IsEnum(ShipmentStatus)
+  status?: ShipmentStatus;
+
+  @IsOptional()
+  @IsString()
+  origin?: string;
+
+  @IsOptional()
+  @IsString()
+  destination?: string;
 }
