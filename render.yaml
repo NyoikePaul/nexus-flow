@@ -16,15 +16,13 @@ services:
           name: nexus-flow-db
           property: connectionString
       - key: REDIS_HOST
-        fromService:
-          name: nexus-flow-redis
-          type: redis
-          property: host
+        sync: false
       - key: REDIS_PORT
-        fromService:
-          name: nexus-flow-redis
-          type: redis
-          property: port
+        value: 6379
+      - key: REDIS_PASSWORD
+        sync: false
+      - key: REDIS_TLS
+        value: true
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
@@ -38,13 +36,13 @@ services:
       - key: MPESA_CONSUMER_SECRET
         sync: false
       - key: MPESA_SHORTCODE
-        sync: false
+        value: "174379"
       - key: MPESA_PASSKEY
         sync: false
       - key: API_BASE_URL
         sync: false
       - key: ALLOWED_ORIGINS
-        sync: false
+        value: https://nexus-flow-dashboard-alpha.vercel.app
 
 databases:
   - name: nexus-flow-db
