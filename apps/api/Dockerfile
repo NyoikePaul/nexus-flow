@@ -12,8 +12,7 @@ COPY apps/api/nest-cli.json ./
 COPY apps/api/prisma ./prisma
 
 RUN npm run build || true
-
-RUN ls dist/ && echo "Build output OK" || echo "No dist folder"
+RUN ls dist/ 2>/dev/null && echo "dist OK" || echo "dist MISSING - build failed silently"
 
 ENV NODE_ENV=production
 EXPOSE 3001
