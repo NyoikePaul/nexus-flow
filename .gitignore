@@ -13,3 +13,5 @@ coverage/
 Thumbs.db
 *.db
 *.sqlite
+*.sh
+*.tar.gz
