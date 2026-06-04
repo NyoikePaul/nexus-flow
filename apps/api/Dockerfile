@@ -11,6 +11,10 @@ COPY apps/api/tsconfig.build.json ./
 COPY apps/api/nest-cli.json ./
 COPY apps/api/prisma ./prisma
 
+# THE FIX: Generate the Prisma client for the Alpine Linux environment
+RUN npx prisma generate
+
+# Build the application
 RUN ./node_modules/.bin/nest build --tsc && ls dist/
 
 ENV NODE_ENV=production
