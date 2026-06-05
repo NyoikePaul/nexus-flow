@@ -1,6 +1,7 @@
-import { IsOptional, IsString, IsEnum } from 'class-validator';
+import { IsOptional, IsString, IsEnum, IsInt, Min, Max } from 'class-validator';
+import { Type } from 'class-transformer';
 
-enum ShipmentStatus {
+export enum ShipmentStatus {
   PENDING = 'PENDING',
   IN_TRANSIT = 'IN_TRANSIT',
   CUSTOMS = 'CUSTOMS',
@@ -11,10 +12,17 @@ enum ShipmentStatus {
 
 export class QueryShipmentDto {
   @IsOptional()
-  page?: number;
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  page?: number = 1;
 
   @IsOptional()
-  limit?: number;
+  @Type(() => Number)
+  @IsInt()
+  @Min(1)
+  @Max(100)
+  limit?: number = 10;
 
   @IsOptional()
   @IsEnum(ShipmentStatus)
