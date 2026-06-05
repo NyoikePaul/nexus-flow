@@ -6,7 +6,12 @@ generator client {
   provider = "prisma-client-js"
 }
 enum ShipmentStatus {
-  PENDING IN_TRANSIT CUSTOMS DELIVERED DELAYED CANCELLED
+  PENDING
+  IN_TRANSIT
+  CUSTOMS
+  DELIVERED
+  DELAYED
+  CANCELLED
 }
 model Shipment {
   id          String         @id @default(uuid())
