@@ -1,7 +1,11 @@
 {
   "version": 2,
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "cd apps/dashboard && pnpm build",
-  "outputDirectory": "apps/dashboard/.next",
-  "rootDirectory": "apps/dashboard"
+  "buildCommand": "pnpm --filter api build",
+  "projects": [
+    {
+      "name": "nexus-flow-api",
+      "rootDirectory": "apps/api"
+    }
+  ]
 }
