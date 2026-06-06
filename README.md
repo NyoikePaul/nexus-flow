@@ -90,3 +90,6 @@ nexus-flow/
 └── .github/workflows/ # CI pipeline
 
 ContributingSee CONTRIBUTING.md. Pull requests are welcome!LicenseMIT © 2026 NyoikePaulMade with  for East African Logistics
+
+<img width="1366" height="590" alt="image" src="https://github.com/user-attachments/assets/60999741-e623-4080-8db6-07cd4d1436ec" />
+
