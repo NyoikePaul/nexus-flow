@@ -33,7 +33,7 @@
 
 ## Quick Start
 
-```bash
+``bash
 # 1. Clone
 git clone https://github.com/NyoikePaul/nexus-flow.git
 cd nexus-flow
