@@ -10,5 +10,13 @@
     "lint": "../../node_modules/.bin/eslint . --ext .ts,.tsx --max-warnings=0",
     "lint:fix": "../../node_modules/.bin/eslint . --ext .ts,.tsx --fix"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.16"
+  }
 }
