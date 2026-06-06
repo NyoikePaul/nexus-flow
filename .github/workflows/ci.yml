@@ -1,4 +1,4 @@
-name: CI
+name: CI / Build & Type Check
 
 on:
   push:
@@ -8,32 +8,34 @@ on:
 
 jobs:
   build:
-    name: Build & Type-check (NestJS API)
+    name: Build & Type-check
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node 20
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
+          cache: 'pnpm'
 
-      - name: Install deps
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
         working-directory: apps/api
-        run: npm install --legacy-peer-deps
+        run: npx prisma generate
 
-      - name: Install build tools
+      - name: Build API
         working-directory: apps/api
-        run: npm install @nestjs/cli @nestjs/schematics prisma@5 @prisma/client@5 --save-dev
+        run: pnpm build
 
-      - name: Generate Prisma client
-        working-directory: apps/api
-        run: npx prisma@5 generate --schema ./prisma/schema.prisma
-
-      - name: Build
-        working-directory: apps/api
-        run: ./node_modules/.bin/nest build --tsc
-
-      - name: Done
-        run: echo "✅ NestJS API build passed"
+      - name: Build Dashboard
+        working-directory: apps/dashboard
+        run: pnpm build
