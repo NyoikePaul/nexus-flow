@@ -2,6 +2,7 @@
   "name": "dashboard",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,20 +12,19 @@
   },
   "dependencies": {
     "next": "15.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.0.0-rc",
+    "react-dom": "^19.0.0-rc",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0",
+    "lucide-react": "^0.475.0"
   },
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
+    "typescript": "^5",
     "eslint": "^9",
     "eslint-config-next": "15.0.0",
-    "eslint-config-prettier": "^10.1.8",
-    "lucide-react": "^1.17.0",
-    "tailwind-merge": "^3.6.0",
-    "typescript": "^5"
+    "eslint-config-prettier": "^10.0.1"
   }
 }
