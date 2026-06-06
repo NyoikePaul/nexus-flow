@@ -28,9 +28,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate Prisma Client
+      - name: Prisma Generate
         working-directory: apps/api
-        run: npx prisma generate
+        run: pnpm prisma generate
 
       - name: Build API
         working-directory: apps/api
