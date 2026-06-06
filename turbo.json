@@ -1,21 +1,16 @@
 {
-  "$schema": "https://turborepo.com/schema.json",
-  "ui": "tui",
-  "globalEnv": [
-    "NODE_ENV",
-    "ALLOWED_ORIGINS",
-    "ENABLE_SWAGGER",
-    "PORT"
-  ],
+  "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
-    "dev": { "cache": false, "persistent": true },
-    "lint": { "outputs": [] },
-    "check-types": { "outputs": [] },
-    "test": { "outputs": ["coverage/**"] }
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    }
   }
 }
