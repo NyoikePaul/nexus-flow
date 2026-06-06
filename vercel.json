@@ -1,16 +1,6 @@
 {
   "version": 2,
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm turbo run build",
-  "framework": null,
-  "projects": [
-    {
-      "name": "nexus-flow-api",
-      "rootDirectory": "apps/api"
-    },
-    {
-      "name": "nexus-flow-dashboard",
-      "rootDirectory": "apps/dashboard"
-    }
-  ]
+  "buildCommand": "pnpm --filter dashboard build",
+  "rootDirectory": "apps/dashboard"
 }
