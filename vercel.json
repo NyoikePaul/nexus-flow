@@ -1,7 +1,7 @@
 {
   "version": 2,
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm --filter dashboard build",
+  "buildCommand": "cd apps/dashboard && pnpm build",
   "outputDirectory": "apps/dashboard/.next",
   "rootDirectory": "apps/dashboard"
 }
