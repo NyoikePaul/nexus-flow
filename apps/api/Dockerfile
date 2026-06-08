@@ -2,27 +2,43 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Install system dependencies
 RUN apk add --no-cache openssl
 
-COPY apps/api/package.json ./
-RUN npm install --legacy-peer-deps && \
-    npm install @nestjs/cli @nestjs/schematics --save-dev
+# Copy root files for pnpm
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json .npmrc ./
 
-COPY apps/api/src ./src
-COPY apps/api/tsconfig.json ./
-COPY apps/api/tsconfig.build.json ./
-COPY apps/api/nest-cli.json ./
-COPY apps/api/prisma ./prisma
+# Copy package.json files
+COPY apps/api/package.json ./apps/api/
+COPY packages/*/package.json ./packages/*/ 2>/dev/null || true
 
-RUN npx prisma generate && \
-    ./node_modules/.bin/nest build --tsc
+# Install dependencies
+RUN corepack enable && pnpm install --frozen-lockfile
 
+# Copy source code
+COPY apps/api ./apps/api
+COPY packages ./packages 2>/dev/null || true
+
+# Generate Prisma Client + Build
+WORKDIR /app/apps/api
+RUN pnpm prisma generate
+RUN pnpm build
+
+# Production image
 FROM node:20-alpine AS production
-RUN apk add --no-cache openssl
+
 WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/prisma ./prisma
+
+RUN apk add --no-cache openssl
+
+# Copy built app and necessary files
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/apps/api/node_modules ./node_modules
+COPY --from=builder /app/apps/api/prisma ./prisma
+
 ENV NODE_ENV=production
-EXPOSE 3001
+ENV PORT=4000
+
+EXPOSE 4000
+
 CMD ["node", "dist/main.js"]
