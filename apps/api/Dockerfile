@@ -1,30 +1,30 @@
+# ==========================================
+# Builder Stage
+# ==========================================
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-RUN apk add --no-cache openssl
-
-# Copy monorepo root files
+# Install dependencies (including devDependencies for the build)
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
-
-# Copy API package files
 COPY apps/api/package.json ./apps/api/
 
-# 1. Install workspace dependencies using pnpm
+# Enable corepack and install everything
 RUN corepack enable && pnpm install --frozen-lockfile
 
-# 2. BRUTE FORCE: Install dependencies locally in the API folder
-# --ignore-scripts ensures Husky and other post-install hooks are skipped
-WORKDIR /app/apps/api
-RUN npm install --legacy-peer-deps --ignore-scripts
+# Copy source code
+COPY apps/api ./apps/api
 
-# 3. Copy source code and build
-COPY apps/api .
-RUN npx prisma generate
-RUN npm run build
+# Disable Husky globally so it doesn't crash the build
+ENV HUSKY=0
+
+# Build
+WORKDIR /app/apps/api
+RUN pnpm prisma generate
+RUN pnpm build
 
 # ==========================================
-# Production stage
+# Production Stage
 # ==========================================
 FROM node:20-alpine AS production
 
@@ -32,13 +32,21 @@ WORKDIR /app
 
 RUN apk add --no-cache openssl
 
-# Copy only what we need from the builder
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/apps/api/node_modules ./node_modules
-COPY --from=builder /app/apps/api/prisma ./prisma
-
+# Set environment to production
 ENV NODE_ENV=production
 ENV PORT=4000
+ENV HUSKY=0
+
+# Copy necessary files from builder
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/apps/api/prisma ./prisma
+COPY --from=builder /app/package.json ./package.json
+
+# Install ONLY production dependencies
+COPY apps/api/package.json ./apps/api/package.json
+WORKDIR /app/apps/api
+RUN corepack enable && pnpm install --prod --frozen-lockfile
+
 EXPOSE 4000
 
 CMD ["node", "dist/main.js"]
