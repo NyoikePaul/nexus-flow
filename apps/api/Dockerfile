@@ -10,16 +10,20 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
 # Copy API package files
 COPY apps/api/package.json ./apps/api/
 
-# Install dependencies (Standard pnpm, no hoisted overrides)
+# 1. Install workspace dependencies
 RUN corepack enable && pnpm install --frozen-lockfile
 
-# Copy source code
-COPY apps/api ./apps/api
-
-# Build
+# 2. BRUTE FORCE: Install production dependencies locally in the API folder
+# This ensures that even if pnpm linking fails, the modules are physically here.
 WORKDIR /app/apps/api
-RUN pnpm prisma generate
-RUN pnpm build
+RUN npm install --legacy-peer-deps
+
+# Copy source code
+COPY apps/api .
+
+# 3. Build
+RUN npx prisma generate
+RUN npm run build
 
 # ==========================================
 # Production stage
@@ -30,18 +34,13 @@ WORKDIR /app
 
 RUN apk add --no-cache openssl
 
+# Copy only what we need from the builder
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/apps/api/node_modules ./node_modules
 COPY --from=builder /app/apps/api/prisma ./prisma
 
-# 🎯 THE BRUTE FORCE FIX:
-# Force npm to install the polyfill directly into the final /app container.
-# Node's module resolution will find this physical copy before checking symlinks.
-RUN npm install reflect-metadata
-
 ENV NODE_ENV=production
 ENV PORT=4000
-
 EXPOSE 4000
 
 CMD ["node", "dist/main.js"]
