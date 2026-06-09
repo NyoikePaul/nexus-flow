@@ -80,6 +80,7 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 Project Structurebash
 
 nexus-flow/
+
 ├── apps/
 │   ├── api/           # NestJS Backend
 │   └── dashboard/     # Next.js Frontend
