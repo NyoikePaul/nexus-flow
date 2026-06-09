@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import 'reflect-metadata';
 import { NestFactory, Reflector } from '@nestjs/core';
 import {
