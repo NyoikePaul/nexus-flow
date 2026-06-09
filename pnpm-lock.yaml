@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      reflect-metadata:
+        specifier: ^0.2.2
+        version: 0.2.2
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -100,7 +104,7 @@ importers:
         specifier: ^0.475.0
         version: 0.475.0(react@19.2.7)
       next:
-        specifier: 16.2.7
+        specifier: ^16.2.7
         version: 16.2.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: ^19.2.7
