@@ -5,12 +5,12 @@ WORKDIR /app
 RUN apk add --no-cache openssl
 
 # Copy monorepo root files
-COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json .npmrc ./
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
 
 # Copy API package files
 COPY apps/api/package.json ./apps/api/
 
-# Install dependencies
+# Install dependencies (Standard pnpm, no hoisted overrides)
 RUN corepack enable && pnpm install --frozen-lockfile
 
 # Copy source code
@@ -21,7 +21,9 @@ WORKDIR /app/apps/api
 RUN pnpm prisma generate
 RUN pnpm build
 
+# ==========================================
 # Production stage
+# ==========================================
 FROM node:20-alpine AS production
 
 WORKDIR /app
@@ -31,6 +33,11 @@ RUN apk add --no-cache openssl
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/apps/api/node_modules ./node_modules
 COPY --from=builder /app/apps/api/prisma ./prisma
+
+# 🎯 THE BRUTE FORCE FIX:
+# Force npm to install the polyfill directly into the final /app container.
+# Node's module resolution will find this physical copy before checking symlinks.
+RUN npm install reflect-metadata
 
 ENV NODE_ENV=production
 ENV PORT=4000
