@@ -28,5 +28,8 @@
   "engines": {
     "node": ">=20",
     "pnpm": ">=9"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2"
   }
 }
