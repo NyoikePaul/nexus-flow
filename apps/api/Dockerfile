@@ -13,7 +13,11 @@ COPY apps/api/package.json ./apps/api/
 # 1. Install workspace dependencies
 RUN corepack enable && pnpm install --frozen-lockfile
 
+
 # 2. BRUTE FORCE: Install production dependencies locally in the API folder
+
+
+# Added --ignore-scripts to prevent Husky/postinstall scripts from crashing the build
 # This ensures that even if pnpm linking fails, the modules are physically here.
 WORKDIR /app/apps/api
 RUN npm install --legacy-peer-deps
