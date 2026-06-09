@@ -10,22 +10,16 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
 # Copy API package files
 COPY apps/api/package.json ./apps/api/
 
-# 1. Install workspace dependencies
+# 1. Install workspace dependencies using pnpm
 RUN corepack enable && pnpm install --frozen-lockfile
 
-
-# 2. BRUTE FORCE: Install production dependencies locally in the API folder
-
-
-# Added --ignore-scripts to prevent Husky/postinstall scripts from crashing the build
-# This ensures that even if pnpm linking fails, the modules are physically here.
+# 2. BRUTE FORCE: Install dependencies locally in the API folder
+# --ignore-scripts ensures Husky and other post-install hooks are skipped
 WORKDIR /app/apps/api
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --ignore-scripts
 
-# Copy source code
+# 3. Copy source code and build
 COPY apps/api .
-
-# 3. Build
 RUN npx prisma generate
 RUN npm run build
 
