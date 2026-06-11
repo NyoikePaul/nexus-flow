@@ -21,7 +21,7 @@ ENV HUSKY=0
 # Build
 WORKDIR /app/apps/api
 RUN pnpm prisma generate
-RUN pnpm build
+RUN npx nest build --tsc && ls dist/
 
 # ==========================================
 # Production Stage
@@ -45,7 +45,7 @@ COPY --from=builder /app/package.json ./package.json
 # Install ONLY production dependencies
 COPY apps/api/package.json ./apps/api/package.json
 WORKDIR /app/apps/api
-RUN corepack enable && pnpm install --prod --frozen-lockfile
+RUN corepack enable && pnpm install --prod --no-frozen-lockfile
 
 EXPOSE 4000
 
