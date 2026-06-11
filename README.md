@@ -95,7 +95,7 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 
 ---
 
-## <pre>🏗 Project Structure</pre>
+## 🏗 Project Structure
 
 ``` nexus-flow/
 ├── apps/
@@ -108,7 +108,7 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 
 ---
 
-## <pre>🚢 Deployment</pre>
+## 🚢 Deployment
 
 ```**Render (API)** — Connect GitHub repo on Render → New Blueprint (uses `render.yaml`).
 
