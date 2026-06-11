@@ -1,6 +1,5 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd apps/dashboard && pnpm run build",
-  "installCommand": "pnpm install --no-frozen-lockfile",
-  "outputDirectory": "apps/dashboard/.next"
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install --no-frozen-lockfile"
 }
