@@ -47,7 +47,7 @@ COPY --from=builder /app/package.json ./package.json
 # Install ONLY production dependencies
 COPY apps/api/package.json ./apps/api/package.json
 WORKDIR /app/apps/api
-RUN printf "enable-pre-post-scripts=true\napprove-builds=*\n" > .npmrc
+ENV PNPM_CONFIG_APPROVE_BUILDS=true
 RUN corepack enable && pnpm install --prod --no-frozen-lockfile
 
 EXPOSE 4000
