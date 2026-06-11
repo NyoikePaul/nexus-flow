@@ -3,6 +3,7 @@
 # ==========================================
 FROM node:22-alpine AS builder
 
+
 WORKDIR /app
 
 # Install dependencies (including devDependencies for the build)
@@ -19,6 +20,8 @@ COPY apps/api ./apps/api
 ENV HUSKY=0
 
 # Build
+
+ENV PNPM_CONFIG_APPROVE_BUILDS=true
 WORKDIR /app/apps/api
 RUN pnpm prisma generate
 RUN npx nest build --tsc && ls dist/
@@ -27,6 +30,7 @@ RUN npx nest build --tsc && ls dist/
 # Production Stage
 # ==========================================
 FROM node:22-alpine AS production
+
 
 WORKDIR /app
 
