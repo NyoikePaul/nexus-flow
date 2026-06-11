@@ -99,12 +99,12 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 
 nexus-flow/
 ├── apps/
-│   ├── api/           # NestJS Backend (port 4000)
-│   └── dashboard/     # Next.js Frontend (port 3000)
-├── packages/          # Shared utilities & types
-├── .github/workflows/ # CI pipeline
-├── render.yaml        # Render Blueprint
-└── turbo.json         # TurboRepo config
+│   ├── api/                        # NestJS Backend (port 4000)
+│   └── dashboard/                  # Next.js Frontend (port 3000)
+├── packages/                       # Shared utilities & types
+├── .github/workflows/              # CI pipeline
+├── render.yaml                     # Render Blueprint
+└── turbo.json                      # TurboRepo config
 
 ---
 
