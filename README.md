@@ -92,5 +92,7 @@ nexus-flow/
 
 ContributingSee CONTRIBUTING.md. Pull requests are welcome!LicenseMIT © 2026 NyoikePaulMade with  for East African Logistics
 
+<img width="1366" height="703" alt="image" src="https://github.com/user-attachments/assets/0b23e093-2939-439a-93d6-211a747e8582" />
+
 <img width="1366" height="590" alt="image" src="https://github.com/user-attachments/assets/60999741-e623-4080-8db6-07cd4d1436ec" />
 
