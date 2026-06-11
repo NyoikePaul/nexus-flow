@@ -10,7 +10,7 @@ COPY package.json pnpm-workspace.yaml pnpm-lock.yaml turbo.json ./
 COPY apps/api/package.json ./apps/api/
 
 # Enable corepack and install everything
-RUN corepack enable && pnpm install --prod --no-frozen-lockfile
+RUN corepack enable && pnpm install --no-frozen-lockfile
 
 # Copy source code
 COPY apps/api ./apps/api
