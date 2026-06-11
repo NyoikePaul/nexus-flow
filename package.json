@@ -31,5 +31,14 @@
   },
   "dependencies": {
     "reflect-metadata": "^0.2.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "prisma",
+      "@prisma/engines",
+      "@scarf/scarf",
+      "@nestjs/core"
+    ]
   }
 }
