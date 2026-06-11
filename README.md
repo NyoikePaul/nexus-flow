@@ -97,7 +97,7 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 
 ## <pre>🏗 Project Structure</pre>
 
-nexus-flow/
+``` nexus-flow/
 ├── apps/
 │   ├── api/                        # NestJS Backend (port 4000)
 │   └── dashboard/                  # Next.js Frontend (port 3000)
@@ -110,7 +110,7 @@ nexus-flow/
 
 ## <pre>🚢 Deployment</pre>
 
-**Render (API)** — Connect GitHub repo on Render → New Blueprint (uses `render.yaml`).
+```**Render (API)** — Connect GitHub repo on Render → New Blueprint (uses `render.yaml`).
 
 **Vercel (Dashboard)** — Set Root Directory to `apps/dashboard`, then add:
 ```env
