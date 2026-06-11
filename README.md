@@ -79,7 +79,7 @@ cd apps/dashboard && pnpm dev
 
 See [`.env.example`](.env.example) for the full list. Key variables:
 
-env
+```env
 DATABASE_URL=postgresql://...
 REDIS_HOST=...
 REDIS_PASSWORD=...
@@ -96,7 +96,7 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 ---
 
 ## <pre>🏗 Project Structure</pre>
-
+```
 nexus-flow/
 ├── apps/
 │   ├── api/                        # NestJS Backend (port 4000)
