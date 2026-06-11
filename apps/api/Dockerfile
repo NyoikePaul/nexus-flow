@@ -41,6 +41,10 @@ COPY --from=builder /app/pnpm-workspace.yaml /app/pnpm-workspace.yaml
 COPY apps/api/package.json ./package.json
 RUN corepack enable && pnpm install --prod --no-frozen-lockfile
 
+# Copy generated Prisma client from builder
+COPY --from=builder /app/apps/api/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/apps/api/node_modules/@prisma/client ./node_modules/@prisma/client
+
 # Copy built artifacts
 COPY --from=builder /app/apps/api/dist ./dist
 COPY --from=builder /app/apps/api/prisma ./prisma
