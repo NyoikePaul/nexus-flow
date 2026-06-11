@@ -96,7 +96,7 @@ NEXT_PUBLIC_API_URL=https://nexus-flow-api-2pty.onrender.com
 ---
 
 ## <pre>🏗 Project Structure</pre>
-```
+`
 nexus-flow/
 ├── apps/
 │   ├── api/                        # NestJS Backend (port 4000)
