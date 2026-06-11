@@ -47,8 +47,7 @@ COPY --from=builder /app/package.json ./package.json
 # Install ONLY production dependencies
 COPY apps/api/package.json ./apps/api/package.json
 WORKDIR /app/apps/api
-
-RUN pnpm config set approve-builds true --global
+COPY .npmrc .
 RUN corepack enable && pnpm install --prod --no-frozen-lockfile
 
 EXPOSE 4000
