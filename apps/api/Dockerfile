@@ -30,13 +30,11 @@ RUN npx nest build --tsc && ls dist/
 # Production Stage
 # ==========================================
 FROM node:22-alpine AS production
-ENV PNPM_CONFIG_APPROVE_BUILDS=true
-
 WORKDIR /app
-
 RUN apk add --no-cache openssl
-
+RUN corepack enable
 # Set environment to production
+ENV PNPM_CONFIG_APPROVE_BUILDS=true
 ENV NODE_ENV=production
 ENV PORT=4000
 ENV HUSKY=0
