@@ -30,7 +30,7 @@ RUN npx nest build --tsc && ls dist/
 # Production Stage
 # ==========================================
 FROM node:22-alpine AS production
-
+ENV PNPM_CONFIG_APPROVE_BUILDS=true
 
 WORKDIR /app
 
