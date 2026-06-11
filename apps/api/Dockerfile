@@ -53,4 +53,4 @@ RUN corepack enable && pnpm install --prod --no-frozen-lockfile
 
 EXPOSE 4000
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "/app/dist/main.js"]
